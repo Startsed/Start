@@ -1,42 +1,67 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Halloween</title>
-    <link rel="stylesheet" type="text/css" href="halloween.css">
-</head>
-<body>
-    <div class="header">
-        <h1>Bienvenue à Halloween</h1>
-    </div>
-    <nav>
-        <ul>
-            <li><a href="#history">Histoire d'Halloween</a></li>
-            <li><a href="#traditions">Traditions</a></li>
-            <li><a href="#activities">Activités</a></li>
-        </ul>
-    </nav>
-    <div class="content">
-        <section id="history">
-            <h2>Histoire d'Halloween</h2>
-            <p>Halloween est une fête célébrée chaque année le 31 octobre. Elle a des racines païennes qui remontent à des millénaires, les celtes célébraient le Samhain, une fête marquait la fin de l'année agricole et le début de l'hiver. Les romains ont ensuite adopté cette fête en y ajoutant leur propre influence, et c'est de là qu'est né Halloween. </p>
-        </section>
-        <section id="traditions">
-            <h2>Traditions</h2>
-            <p>Il y a beaucoup de traditions associées à Halloween, comme se déguiser en fantômes, sorcières et autres créatures effrayantes, allumer des feux pour chasser les mauvais esprits, et raconter des histoires effrayantes autour d'un feu de camp.</p>
-        </section>
-        <section id="activities">
-            <h2>Activités</h2>
-            <ul>
-                <li>Faire du porte-à-porte pour demander des bonbons</li>
-                <li>Organiser une soirée déguisée</li>
-                <li>Visiter un parc d'attractions d'Halloween</li>
-                <li>Regarder des films d'horreur</li>
-                <li>Faire une chasse aux bonbons</li>
-            </ul>
-        </section>
-    </div>
-    <div class="footer">
-        <p>Copyright ©2022 Halloween</p>
-    </div>
-</body>
+  <head>
+    <title>Convertisseur de devises</title>
+    <script src="https://cdn.jsdelivr.net/npm/ currency-converter-api-client@2.2.4/dist/currency-converter-api-client.min.js"></script>
+    <script>
+     let client = new CurrencyConverterApiClient();
+        async function convertCurrency() {
+        // Récupérer les valeurs des champs de formulaire
+        const amount = document.getElementById("amount").value;
+        const fromCurrency = document.getElementById("from-currency").value;
+        const toCurrency = document.getElementById("to-currency").value;
+      
+        // Effectuer la conversion ici en utilisant les taux de change en temps réel
+        // et en utilisant les valeurs des devises de départ et d'arrivée
+        const rates = await client.getExchangeRates(fromCurrency);
+        const rate = rates.data.rates[toCurrency];
+        const convertedAmount = rate * amount;
+        // Afficher le résultat de la conversion
+        document.getElementById("output").innerHTML = `${amount} ${fromCurrency} est égal à ${convertedAmount} ${toCurrency}`;
+    }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        form {
+            display: inline-block;
+        }
+
+        label {
+            font-weight: bold;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Convertisseur de devises</h1>
+    <form>
+      <label>Montant à convertir :</label>
+      <input type="text" id="amount" placeholder="Entrez le montant">
+      <br><br>
+      <label>Devise de départ :</label>
+      <select id="from-currency">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="CAD">CAD</option>
+        <option value="JPY">JPY</option>
+      </select>
+      <br><br>
+      <label>Devise d'arrivée :</label>
+      <select id="to-currency">
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="CAD">CAD</option>
+        <option value="JPY">JPY</option>
+      </select>
+      <br><br>
+      <button onclick="convertCurrency()">Convertir</button>
+    </form>
+    <br>
+    <p id="output"></p>
+  </body>
 </html>
